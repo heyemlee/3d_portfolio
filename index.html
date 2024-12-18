@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#4fc3dc">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>My 3D World</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading... <span id="loading-progress">0%</span></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <canvas id="world"></canvas>
+
+        <div class="intro-overlay">
+            <div class="intro-content">
+                <h1>Hi~ I‘m <span class="highlight">Haoyang</span> 👋</h1>
+            </div>
+        </div>
+
+        <div class="content-sections">
+            <section id="about" class="section">
+                <div class="section-content">
+                    <h2>About Me</h2>
+                    <p>Your introduction here...</p>
+                </div>
+            </section>
+            
+            <section id="work" class="section">
+                <div class="section-content">
+                    <h2>Work</h2>
+                    <div class="projects-grid">
+                        <!-- Projects will be added dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="section">
+                <div class="section-content">
+                    <h2>Skills</h2>
+                    <div class="skills-grid">
+                        <!-- Skills will be added dynamically -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active" data-section="intro">
+                <span class="dot"></span>
+                <span class="label">Intro</span>
+            </div>
+            <div class="nav-item" data-section="about">
+                <span class="dot"></span>
+                <span class="label">About</span>
+            </div>
+            <div class="nav-item" data-section="work">
+                <span class="dot"></span>
+                <span class="label">Work</span>
+            </div>
+            <div class="nav-item" data-section="skills">
+                <span class="dot"></span>
+                <span class="label">Skills</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-container">
+        <div id="introModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Education</h2>
+                <div class="modal-body">
+                    <div class="education-item">
+                        <div class="school-info">
+                            <h3>Santa Clara University</h3>
+                            <span class="location">Santa Clara, CA, US</span>
+                        </div>
+                        <div class="degree-info">
+                            <p class="degree">Master of Computer Science and Engineering</p>
+                            <span class="duration">Sep. 2023 – Jun. 2025</span>
+                        </div>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="school-info">
+                            <h3>Baekseok University</h3>
+                            <span class="location">South Korea</span>
+                        </div>
+                        <div class="degree-info">
+                            <p class="degree">Bachelor of Information and Communication Technology</p>
+                            <span class="duration">Mar. 2018 – Feb. 2022</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="aboutModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>About Me</h2>
+                <div class="modal-body">
+                    <div class="about-section">
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/heyhaoyang/" target="_blank" class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://github.com/heyemlee" target="_blank" class="social-icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+
+                        <div class="about-intro">
+                            <p class="highlight-text">
+                                I'm a passionate software engineer <span class="emoji">💻</span>
+                            </p>
+                        </div>
+                        
+                        <div class="about-details">
+                            <p>
+                                With a strong interest in technology and problem-solving, I'm currently pursuing a Master's in Computer Science at Santa Clara University <span class="emoji">🎓</span>
+                            </p>
+                            
+                            <div class="skills-highlight">
+                                <p>My expertise includes:</p>
+                                <ul>
+                                    <li>Full-stack Development</li>
+                                    <li>AI-driven Platforms</li>
+                                    <li>Cross-platform Apps</li>
+                                </ul>
+                            </div>
+
+                            <div class="interests-section">
+                                <p>When I'm not coding, you'll find me:</p>
+                                <div class="interests-grid">
+                                    <div class="interest-item">
+                                        <span class="emoji">🏀</span>
+                                        <span>Playing Basketball</span>
+                                    </div>
+                                    <div class="interest-item">
+                                        <span class="emoji">🏃‍♂️</span>
+                                        <span>Staying Active</span>
+                                    </div>
+                                    <div class="interest-item">
+                                        <span class="emoji">✈️</span>
+                                        <span>Traveling</span>
+                                    </div>
+                                    <div class="interest-item">
+                                        <span class="emoji">📸</span>
+                                        <span>Photography</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="closing-statement">
+                                Always eager to learn and grow, I thrive in dynamic environments where I can apply my skills and creativity.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="workModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Experience</h2>
+                <div class="modal-body">
+                    <div class="work-timeline">
+                        <div class="work-item">
+                            <div class="work-header">
+                                <div class="company-info">
+                                    <h3>Blinkle</h3>
+                                    <span class="location">New York, NY</span>
+                                </div>
+                                <div class="role-info">
+                                    <span class="role">SDE Intern</span>
+                                    <span class="duration">Mar. 2024 – Present</span>
+                                </div>
+                            </div>
+                            <div class="tech-tags">
+                                <span>React</span>
+                                <span>Next.js</span>
+                                <span>TypeScript</span>
+                                <span>Nest.js</span>
+                            </div>
+                        </div>
+
+                        <div class="work-item">
+                            <div class="work-header">
+                                <div class="company-info">
+                                    <h3>FlowMingle Inc.</h3>
+                                    <span class="location">San Francisco, CA</span>
+                                </div>
+                                <div class="role-info">
+                                    <span class="role">SDE Intern</span>
+                                    <span class="duration">Oct. 2023 – Dec. 2023</span>
+                                </div>
+                            </div>
+                            <div class="tech-tags">
+                                <span>Flutter</span>
+                                <span>Firebase</span>
+                                <span>Node.js</span>
+                                <span>Google Maps API</span>
+                            </div>
+                        </div>
+
+                        <div class="work-item">
+                            <div class="work-header">
+                                <div class="company-info">
+                                    <h3>RS-TEAM</h3>
+                                    <span class="location">South Korea</span>
+                                </div>
+                                <div class="role-info">
+                                    <span class="role">SDE Intern</span>
+                                    <span class="duration">Nov. 2021 – Jan. 2022</span>
+                                </div>
+                            </div>
+                            <div class="tech-tags">
+                                <span>Node.js</span>
+                                <span>React</span>
+                                <span>MongoDB</span>
+                                <span>Redux</span>
+                            </div>
+                        </div>
+
+                        <div class="work-item">
+                            <div class="work-header">
+                                <div class="company-info">
+                                    <h3>Baekseok University Linc+</h3>
+                                    <span class="location">South Korea</span>
+                                </div>
+                                <div class="role-info">
+                                    <span class="role">Sum. Intern</span>
+                                    <span class="duration">Jun. 2021 – Aug. 2021</span>
+                                </div>
+                            </div>
+                            <div class="tech-tags">
+                                <span>Python</span>
+                                <span>FastAPI</span>
+                                <span>PostgreSQL</span>
+                                <span>Docker</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="skillsModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Skills</h2>
+                <div class="modal-body">
+                    <div class="skills-container">
+                        <div class="skill-category">
+                            <div class="category-header">
+                                <span class="category-icon">🚀</span>
+                                <h3>Languages</h3>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">TypeScript</span>
+                                <span class="skill-tag">Golang</span>
+                                <span class="skill-tag">C</span>
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">Ruby</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <div class="category-header">
+                                <span class="category-icon">⚡</span>
+                                <h3>Frameworks</h3>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Nest.js</span>
+                                <span class="skill-tag">Next.js</span>
+                                <span class="skill-tag">Express.js</span>
+                                <span class="skill-tag">Flask</span>
+                                <span class="skill-tag">Django</span>
+                                <span class="skill-tag">Sinatra</span>
+                                <span class="skill-tag">Ruby on Rails</span>
+                                <span class="skill-tag">LangChain</span>
+                                <span class="skill-tag">Flutter</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <div class="category-header">
+                                <span class="category-icon">🛠️</span>
+                                <h3>Tools & Technologies</h3>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Git</span>
+                                <span class="skill-tag">GitLab CI</span>
+                                <span class="skill-tag">AWS</span>
+                                <span class="skill-tag">Docker</span>
+                                <span class="skill-tag">MongoDB</span>
+                                <span class="skill-tag">MySQL</span>
+                                <span class="skill-tag">PostgreSQL</span>
+                                <span class="skill-tag">Axios</span>
+                                <span class="skill-tag">Redis</span>
+                                <span class="skill-tag">Firebase</span>
+                                <span class="skill-tag">Vite</span>
+                                <span class="skill-tag">Tailwind CSS</span>
+                                <span class="skill-tag">Node.js</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html>

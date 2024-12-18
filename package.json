@@ -1,0 +1,14 @@
+{
+  "name": "3d-portfolio",
+  "version": "1.0.0",
+  "description": "3D Portfolio Website",
+  "scripts": {
+    "start": "live-server --port=3000 --host=localhost"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5"
+  }
+}
