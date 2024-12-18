@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#4fc3dc">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>My 3D World</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script type="module" crossorigin src="/3d_portfolio/assets/index-hsj6PxBF.js"></script>
-  <link rel="modulepreload" crossorigin href="/3d_portfolio/assets/three-BVjbcvq7.js">
-  <link rel="stylesheet" crossorigin href="/3d_portfolio/assets/index-DGg6Tzrk.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./node_modules/three/build/three.module.js",
+            "three/examples/": "./node_modules/three/examples/"
+        }
+    }
+    </script>
+  <script type="module" crossorigin src="/3d_portfolio/assets/main-zBS14XkZ.js"></script>
+  <link rel="stylesheet" crossorigin href="/3d_portfolio/assets/main-DGg6Tzrk.css">
 </head>
 <body>
     <div id="loading-screen">
