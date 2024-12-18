@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "3D Portfolio Website",
   "scripts": {
-    "start": "live-server --port=3000 --host=localhost"
+    "start": "live-server --port=3000 --host=localhost",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
+    "gh-pages": "^6.2.0",
     "live-server": "^1.2.2"
   },
   "dependencies": {
     "gsap": "^3.12.5"
-  }
+  },
+  "homepage": "https://lihaoyang.github.io/3d_portfolio"
 }
