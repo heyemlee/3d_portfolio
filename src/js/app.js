@@ -12,10 +12,10 @@ export class App {
     }
 
     setupEventListeners() {
-        // 监听滚轮事件
+        // Listen to wheel events
         window.addEventListener('wheel', (e) => this.handleScroll(e));
 
-        // 监听底部导航点击
+        // Listen to bottom navigation clicks
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 const section = item.dataset.section;
@@ -23,7 +23,7 @@ export class App {
             });
         });
 
-        // 监听键盘事件
+        // Listen to keyboard events
         window.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
                 e.preventDefault();
@@ -67,12 +67,12 @@ export class App {
     }
 
     updateActiveSection(section) {
-        // 更新底部导航
+        // update bottom navigation
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.toggle('active', item.dataset.section === section);
         });
 
-        // 更新内容区域
+        // update sections
         document.querySelectorAll('.section').forEach(sectionEl => {
             sectionEl.classList.toggle('active', sectionEl.id === section);
         });

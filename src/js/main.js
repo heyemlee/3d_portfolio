@@ -6,43 +6,41 @@ class World {
     constructor() {
         this.initialize();
         this.setupCameraPositions();
-        this.totalAssets = 7; // 总资源数（岛屿、飞机、5朵云）
+        this.totalAssets = 7;
         this.loadedAssets = 0;
         this.cloudInitialPositions = [];
     }
 
     setupCameraPositions() {
-        // 计算旋转后的相机位置
+        // compute the rotated camera position
         const distance = 45;
         const angleInRadians = (25 * Math.PI) / 180; 
         const x = distance * Math.cos(angleInRadians);
         const z = distance * Math.sin(angleInRadians);
 
         this.cameraPositions = {
-            // Work: 右前方俯视
             work: { 
                 position: new THREE.Vector3(30, 25, 30), 
                 target: new THREE.Vector3(0, 0, 0) 
             },
-            // Skills: 正上方俯瞰
             skills: { 
                 position: new THREE.Vector3(0, 40, 0), 
                 target: new THREE.Vector3(0, 0, 0) 
             }
         };
 
-        // 设置默认相机位置 - 拉近视角
+        // set the camera position and target
         this.camera.position.set(45, 20, 8);
 
-        // 设置控制器限制
-        this.controls.minDistance = 25; // 减小最小距离
-        this.controls.maxDistance = 70; // 减小最大距离
+        // set the camera target
+        this.controls.minDistance = 25; // increase the minimum distance
+        this.controls.maxDistance = 70; // increase the maximum distance
         
-        // 调整视角限制
+        // set the camera rotation limits
         this.controls.minPolarAngle = Math.PI * 0.2;
         this.controls.maxPolarAngle = Math.PI * 0.6;
         
-        // 设置控制器目标点
+        // set the camera rotation speed
         this.controls.target.set(0, 0, 0);
         this.controls.update();
 
@@ -109,11 +107,11 @@ class World {
 
     initialize() {
         try {
-            // 创建场景
+            // create the scene
             this.scene = new THREE.Scene();
-            this.scene.background = new THREE.Color(0x87CEEB); // 天空蓝色背景
+            this.scene.background = new THREE.Color(0x87CEEB);
             
-            // 创建相机
+            // create the camera
             this.camera = new THREE.PerspectiveCamera(
                 75,
                 window.innerWidth / window.innerHeight,
@@ -121,7 +119,7 @@ class World {
                 1000
             );
             
-            // 计算旋转后的相机位置
+            // set the camera position
             const distance = 45;
             const angleInRadians = (25 * Math.PI) / 180; 
             const x = distance * Math.cos(angleInRadians);
@@ -129,7 +127,7 @@ class World {
             this.camera.position.set(x, 20, z);
             this.camera.lookAt(0, 0, 0);
 
-            // 创建渲染器
+            // create the renderer
             this.renderer = new THREE.WebGLRenderer({
                 canvas: document.querySelector('#world'),
                 antialias: true,
@@ -140,51 +138,46 @@ class World {
             this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             this.renderer.shadowMap.enabled = true;
             this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-            this.renderer.physicallyCorrectLights = true; // 启用物理正确的光照计算
+            this.renderer.physicallyCorrectLights = true; // Enable physically correct lighting
 
-            // 添加性能监控
+            // create the camera controls
             this.setupPerformanceMonitoring();
 
-            // 添加灯光
+            // add lights
             this.setupLights();
 
-            // 添加控制器
+            // add orbit controls
             this.controls = new OrbitControls(this.camera, this.renderer.domElement);
             this.controls.enableDamping = true;
             this.controls.dampingFactor = 0.05;
-            this.controls.maxPolarAngle = Math.PI / 2.1; // 限制相机角度
-            this.controls.minDistance = 10;  // 最小距离设为5
-            this.controls.maxDistance = 60; // 增加最大距离以匹配更远的初始位置
-            this.controls.autoRotate = false; // 取消自动旋转
-            this.controls.target.set(0, 0, 0); // 更左的目标点
+            this.controls.maxPolarAngle = Math.PI / 2.1; // Limit the camera to not go below the ground
+            this.controls.minDistance = 10;
+            this.controls.maxDistance = 60;
+            this.controls.autoRotate = false;
+            this.controls.target.set(0, 0, 0);
 
-            // 重置加载计数器
+            // initialize the scene
             this.loadedAssets = 0;
 
-            // 加载3D模型
+            // load the assets
             this.loadIsland();
             this.loadPlane();
             this.loadClouds();
 
-            // 添加事件监听
+            // add event listeners
             window.addEventListener('resize', () => this.onWindowResize());
             window.addEventListener('orientationchange', () => {
                 setTimeout(() => this.onWindowResize(), 100);
             });
 
-            // 添加触摸事件支持
             this.setupTouchEvents();
 
-            // 初始调整大小
             this.onWindowResize();
 
-            // 开始动画循环
             this.animate();
 
-            // 隐藏加载屏幕
             this.updateLoadingProgress();
 
-            // 添加移动端控制
             this.setupMobileControls();
         } catch (error) {
             console.error('初始化错误:', error);
@@ -193,32 +186,26 @@ class World {
     }
 
     setupMobileControls() {
-        // 检测是否为移动设备
+        // check if the user is on a mobile device
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         
         if (isMobile) {
-            // 优化移动端性能
             this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
             
-            // 调整移动端相机设置
             this.camera.position.set(50, 25, 12);
             this.controls.minDistance = 35;
             this.controls.maxDistance = 65;
             
-            // 禁用自动旋转
             this.controls.autoRotate = false;
             
-            // 优化控制器设置
             this.controls.enableDamping = true;
             this.controls.dampingFactor = 0.05;
             this.controls.rotateSpeed = 0.5;
             this.controls.zoomSpeed = 0.5;
             
-            // 限制垂直旋转角度
             this.controls.minPolarAngle = Math.PI * 0.25;
             this.controls.maxPolarAngle = Math.PI * 0.55;
             
-            // 添加双指缩放支持
             this.renderer.domElement.addEventListener('touchstart', (e) => {
                 if (e.touches.length === 2) {
                     e.preventDefault();
@@ -702,13 +689,18 @@ class ModalManager {
     setupEventListeners() {
         // 设置关闭按钮事件
         document.querySelectorAll('.close-modal').forEach(button => {
-            button.addEventListener('click', () => this.closeActiveModal());
+            const closeModal = () => this.closeActiveModal();
+            button.addEventListener('click', closeModal);
+            button.addEventListener('touchend', (e) => {
+                e.preventDefault(); // 阻止默认行为，防止触发点击事件
+                closeModal();
+            });
         });
 
         // 为导航项添加点击事件
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
+            const handleNavigation = (e) => {
                 const section = item.getAttribute('data-section');
                 if (section) {
                     // 移除所有导航项的active类
@@ -717,14 +709,35 @@ class ModalManager {
                     item.classList.add('active');
                     this.openModal(section);
                 }
+            };
+
+            // 添加触摸事件监听
+            item.addEventListener('touchend', (e) => {
+                e.preventDefault(); // 阻止默认行为，防止触发点击事件
+                handleNavigation(e);
+            });
+        
+            // 保留点击事件用于桌面端
+            item.addEventListener('click', (e) => {
+                // 如果是触摸设备，不处理点击事件
+                if (window.matchMedia('(hover: none)').matches) {
+                    return;
+                }
+                handleNavigation(e);
             });
         });
 
         // 点击外部区域关闭模态窗口
-        window.addEventListener('click', (e) => {
+        const handleOutsideClick = (e) => {
             if (this.activeModal && !e.target.closest('.modal-content') && !e.target.closest('.nav-item')) {
                 this.closeActiveModal();
             }
+        };
+
+        window.addEventListener('click', handleOutsideClick);
+        window.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            handleOutsideClick(e);
         });
     }
 
@@ -825,7 +838,6 @@ class ModalManager {
     }
 }
 
-// 创建世界实例
 new World();
 
 // Initialize modal manager
