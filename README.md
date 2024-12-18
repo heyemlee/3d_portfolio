@@ -4,6 +4,8 @@
 
 Welcome to my interactive 3D portfolio! ✨ Built with Three.js and modern web tech.
 
+🔗 [Live Demo](https://heyemlee.github.io/3d_portfolio/)
+
 ## ✨ Features
 
 🏝️ Interactive 3D island environment
